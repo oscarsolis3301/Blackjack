@@ -33,13 +33,20 @@ def hit(deck, score, busted):
     score += x
 
   if score > 21:
-    print(f'Darn! You have busted. Your final deck was {deck} with a score of {score}.')
     busted = True
     return busted
   else:
     print(f'Your new cards are: {deck}, current score: {score}')
     return busted
 
+def check(u_deck, u_score, c_deck, c_score):
+  for x in u_deck:
+    u_score += x
+  
+  for y in c_deck:
+    c_score += y
+
+  return (u_score, c_score)
 
 playing = True
 first_game = True
@@ -64,6 +71,11 @@ while playing:
           busted = hit(user_deck, user_score, busted)
           computer_deck.append(cards[random.randint(2,11)])
           if busted == True:
+            user_score, computer_score = check(user_deck, user_score, computer_deck, computer_score)
+  
+            print(f"Your final hand: {user_deck}, final score: {user_score}")
+            print(f"Computer's final hand: {computer_deck}, final score: {computer_score}")
+            print('You went over. You lose 😭')
             break
           else:
             continue
@@ -73,7 +85,6 @@ while playing:
             user_score += x
           for x in computer_deck:
             computer_score += x
-
 
           print(f'Your final hand: {user_deck}, final score: {user_score}')
           print(f"Computer's final hand: {computer_deck}, final score: {computer_score}")
