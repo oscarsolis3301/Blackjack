@@ -47,15 +47,22 @@ while playing:
     playing = start(playing, first_game)
     if playing == True:
       user_deck = []
-      score = 0
+      user_score = 0
       busted = False
       user_deck.append(cards[random.randint(2,11)])
       user_deck.append(cards[random.randint(2,11)])
-      player_cards(user_deck, score)
+      player_cards(user_deck, user_score)
+
+      computer_deck = []
+      computer_score = 0
+      computer_deck.append(cards[random.randint(2,11)])
+      computer_deck.append(cards[random.randint(2,11)])
+      print(f"Computer's first card: {computer_deck[0]}")
       while True:
-        user_hit = input('Would you like to hit? ')
+        user_hit = input("Type 'y' to get another card, type 'n' to pass: ")
         if user_hit == 'y':
-          busted = hit(user_deck, score, busted)
+          busted = hit(user_deck, user_score, busted)
+          computer_deck.append(cards[random.randint(2,11)])
           if busted == True:
             break
           else:
@@ -63,12 +70,24 @@ while playing:
         elif user_hit == 'n':
           first_game = False
           for x in user_deck:
-            score += x
-          print(f'Your final deck was {user_deck} with a score of {score}!')
+            user_score += x
+          for x in computer_deck:
+            computer_score += x
+
+
+          print(f'Your final hand: {user_deck}, final score: {user_score}')
+          print(f"Computer's final hand: {computer_deck}, final score: {computer_score}")
+
+          if user_score > computer_score:
+            print ('You win! 😋')
+          elif computer_score > user_score and computer_score <= 21:
+            print ('You lose. 😭')
+          elif computer_score > 21:
+            print('Opponent went over. You win 👌')
           break
     else:
       break
-print('Thank you for playing!')
+print('Thank you for checking out the blackjack!')
 
 
 #     play = input("Do you want to play Blackjack? Type 'y' or 'n' ")
