@@ -5,10 +5,13 @@ cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 from art import logo
 
-def start(playing):
+def start(playing, first_game):
   play = ' '
   while play != 'y' or 'n':
-    play = str(input("Do you want to play a game of Blackjack? Type 'y' or 'n': "))
+    if first_game == True:
+      play = str(input("Do you want to play a game of Blackjack? Type 'y' or 'n': "))
+    else:
+      play = str(input("Do you want to play again? Type 'y' or 'n': "))
     if play == 'y':
       os.system('cls||clear')
       print(logo)
@@ -39,8 +42,9 @@ def hit(deck, score, busted):
 
 
 playing = True
+first_game = True
 while playing:
-    playing = start(playing)
+    playing = start(playing, first_game)
     if playing == True:
       user_deck = []
       score = 0
@@ -48,10 +52,20 @@ while playing:
       user_deck.append(cards[random.randint(2,11)])
       user_deck.append(cards[random.randint(2,11)])
       player_cards(user_deck, score)
-      while busted != True:
+      while True:
         user_hit = input('Would you like to hit? ')
         if user_hit == 'y':
           busted = hit(user_deck, score, busted)
+          if busted == True:
+            break
+          else:
+            continue
+        elif user_hit == 'n':
+          first_game = False
+          for x in user_deck:
+            score += x
+          print(f'Your final deck was {user_deck} with a score of {score}!')
+          break
     else:
       break
 print('Thank you for playing!')
