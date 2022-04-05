@@ -6,17 +6,18 @@ cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 from art import logo
 
 def start(playing):
-  play = str(input("Do you want to play a game of Blackjack? Type 'y' or 'n': "))
-  if play == 'y':
-    os.system('cls||clear')
-    print(logo)
-    return playing
-  elif play == "n":
-    playing = False
-    return playing
-  else:
-    playing = False
-    return playing
+  play = ' '
+  while play != 'y' or 'n':
+    play = str(input("Do you want to play a game of Blackjack? Type 'y' or 'n': "))
+    if play == 'y':
+      os.system('cls||clear')
+      print(logo)
+      return playing
+    elif play == "n":
+      playing = False
+      return playing
+    else:
+      print ('Please enter a valid response.')
 
 def player_cards(deck, score):
   for x in deck:
