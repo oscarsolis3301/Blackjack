@@ -35,14 +35,15 @@ def hit(deck, score, busted):
   if score > 21:
     busted = True
     return busted
-  else:
+  elif score == 21:
+    return
+  elif score < 21:
     print(f'Your new cards are: {deck}, current score: {score}')
     return busted
 
 def check(u_deck, u_score, c_deck, c_score):
   for x in u_deck:
     u_score += x
-  
   for y in c_deck:
     c_score += y
 
@@ -65,37 +66,46 @@ while playing:
       computer_deck.append(cards[random.randint(2,11)])
       computer_deck.append(cards[random.randint(2,11)])
       print(f"Computer's first card: {computer_deck[0]}")
-      while True:
+      while True and user_score != 21 and computer_score != 21:
         user_hit = input("Type 'y' to get another card, type 'n' to pass: ")
         if user_hit == 'y':
           busted = hit(user_deck, user_score, busted)
           computer_deck.append(cards[random.randint(2,11)])
+          if sum(computer_deck) > 21:
+            computer_score = sum(computer_deck)
+            print(f"Computer's final hand: {computer_deck}, final score: {computer_score}")
+            print("THE COMPUTER WENT OVER 21, YOU WIN")
+
+            break
+
           if busted == True:
             user_score, computer_score = check(user_deck, user_score, computer_deck, computer_score)
-  
             print(f"Your final hand: {user_deck}, final score: {user_score}")
             print(f"Computer's final hand: {computer_deck}, final score: {computer_score}")
             print('You went over. You lose 😭')
             break
           else:
             continue
+          
         elif user_hit == 'n':
           first_game = False
           for x in user_deck:
             user_score += x
           for x in computer_deck:
             computer_score += x
-
           print(f'Your final hand: {user_deck}, final score: {user_score}')
           print(f"Computer's final hand: {computer_deck}, final score: {computer_score}")
-
           if user_score > computer_score:
             print ('You win! 😋')
           elif computer_score > user_score and computer_score <= 21:
             print ('You lose. 😭')
           elif computer_score > 21:
             print('Opponent went over. You win 👌')
+          elif computer_score == user_score:
+            print("YOU TIED!")
           break
+      if user_score == 21:
+            print('YOU GOT A BLACKJACK, YOU WIN!')
     else:
       break
 print('Thank you for checking out the blackjack!')
