@@ -6,6 +6,7 @@ cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 from art import logo
 
 def start(playing, first_game):
+  """checks if the user wants to play or not"""
   play = ' '
   while play != 'y' or 'n':
     if first_game == True:
@@ -23,11 +24,13 @@ def start(playing, first_game):
       print ('Please enter a valid response.')
 
 def player_cards(deck, score):
+  """Checks the cards in the given deck"""
   for x in deck:
     score += x
   print (f"Your cards are: {deck}, current score: {score}")
 
 def hit(deck, score, busted):
+  """Adds a card to the deck"""
   deck.append(cards[random.randint(2, 11)])
   for x in deck:
     score += x
@@ -42,16 +45,17 @@ def hit(deck, score, busted):
     return busted
 
 def check(u_deck, u_score, c_deck, c_score):
+  """Verifies the score for the user and the computer"""
   for x in u_deck:
     u_score += x
   for y in c_deck:
     c_score += y
-
   return (u_score, c_score)
 
 playing = True
 first_game = True
 while playing:
+    """Main while loop that handles the game"""
     playing = start(playing, first_game)
     if playing == True:
       user_deck = []
