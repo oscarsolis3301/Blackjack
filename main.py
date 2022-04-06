@@ -75,6 +75,13 @@ while playing:
         if user_hit == 'y':
           busted = hit(user_deck, user_score, busted)
           computer_deck.append(cards[random.randint(2,11)])
+
+          if 11 in user_deck and len(user_deck) == 2 and sum(user_deck) == 21:
+             print("YOU GOT A BLACKJACK!!")
+             break
+          if 11 in computer_deck and len(computer_deck) == 2 and sum(computer_deck) == 21:
+             print("THE COMPUTER GOT A BLACKJACK!!")
+             break
           if sum(computer_deck) > 21:
             computer_score = sum(computer_deck)
             print(f"Computer's final hand: {computer_deck}, final score: {computer_score}")
